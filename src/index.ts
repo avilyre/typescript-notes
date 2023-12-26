@@ -1,11 +1,13 @@
-// Mapped type - Used to generate a readonly type to prevente re-assign objects typed
+/**
+ * Mapped type - Used to generate a readonly type to prevente re-assign objects typed
+ */
 type ReadonlyType<T> = {
   readonly [P in keyof T]: T[P];
 };
 
 type UserType = {
   username: string;
-  age: number;
+  age: number | undefined;
 }
 
 type UserReadonlyType = ReadonlyType<UserType>;
@@ -23,3 +25,10 @@ const user2: UserReadonlyType = {
 }
 
 user2.username = "Avily123" // Typed with readonly type to prevent re-assign
+
+/**
+ * Conditional types using NonNullable
+ */
+type NonNullableType<T> = T extends null | undefined ? never : T;
+
+type UserNonNullable = NonNullableType<UserType>;
